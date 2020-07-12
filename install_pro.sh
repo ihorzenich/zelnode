@@ -129,7 +129,7 @@ if [[ "$CORRUPTED" == "1" ]]; then
   echo -e "${WORNING}${CYAN}Will exit out so try and run the script again..."
   echo
   exit
-fi	
+fi
 echo -e ""
 }
 
@@ -240,7 +240,7 @@ fi
 fi
 
 
-else 
+else
 
 if [[ "$import_settings" == "1" ]]; then
 IMPORT_ZELCONF="1"
@@ -271,7 +271,7 @@ echo
 #
 #Suppressing password prompts for this user so zelnode can operate
 start_install=`date +%s`
-sudo echo -e "$(whoami) ALL=(ALL) NOPASSWD:ALL" | sudo EDITOR='tee -a' visudo 
+sudo echo -e "$(whoami) ALL=(ALL) NOPASSWD:ALL" | sudo EDITOR='tee -a' visudo
 echo -e "${CYAN}APRIL 2020, created by dk808 improved by XK4MiLX from Zel's team and AltTank Army."
 echo -e "Special thanks to Goose-Tech, Skyslayer, & Packetflow."
 echo -e "Zelnode setup starting, press [CTRL+C] to cancel.${NC}"
@@ -355,7 +355,7 @@ sudo chmod +x /home/$USER/watchdog/.git/hooks/post-merge
 echo -e "${ARROW} ${YELLOW}Installing watchdog module....${NC}"
 cd watchdog && npm install > /dev/null 2>&1
 echo -e "${ARROW} ${YELLOW}Starting watchdog...${NC}"
-pm2 start /home/$USER/watchdog/watchdog.js --name watchdog --watch /home/$USER/watchdog --ignore-watch '"./**/*.git" "./**/*node_modules" "./**/*watchdog_error.log" "./**/*config.js"' --watch-delay 10 > /dev/null 2>&1 
+pm2 start /home/$USER/watchdog/watchdog.js --name watchdog --watch /home/$USER/watchdog --ignore-watch '"./**/*.git" "./**/*node_modules" "./**/*watchdog_error.log" "./**/*config.js"' --watch-delay 10 > /dev/null 2>&1
 pm2 save > /dev/null 2>&1
 if [[ -f /home/$USER/watchdog/watchdog.js ]]
 then
@@ -398,7 +398,7 @@ else
 
   if [[ "$BLOCKHIGHT" -gt "0" && "$BLOCKHIGHT" -lt "$DB_HIGHT" ]]; then
     echo -e "${ARROW} ${CYAN}Downloading File: ${GREEN}$BOOTSTRAP_URL_MONGOD${NC}"
-    wget $BOOTSTRAP_URL_MONGOD -q --show-progress 
+    wget $BOOTSTRAP_URL_MONGOD -q --show-progress
     echo -e "${ARROW} ${CYAN}Unpacking...${NC}"
     tar xvf $BOOTSTRAP_ZIPFILE_MONGOD -C /home/$USER > /dev/null 2>&1 && sleep 1
     echo -e "${ARROW} ${CYAN}Stoping zelflux...${NC}"
@@ -418,7 +418,7 @@ else
     echo
     BLOCKHIGHT_AFTER_BOOTSTRAP=$(curl -s -m 3 http://"$WANIP":16127/explorer/scannedheight | jq '.data.generalScannedHeight')
     echo -e ${ARROW} ${CYAN}Node block hight after restored: ${GREEN}$BLOCKHIGHT_AFTER_BOOTSTRAP${NC}
-  
+
     if [[ "$BLOCKHIGHT_AFTER_BOOTSTRAP" -ge  "$DB_HIGHT" ]]
     then
       echo -e "${ARROW} ${CYAN}Mongo bootstrap installed successful.${NC}"
@@ -427,7 +427,7 @@ else
       echo -e "${ARROW} ${CYAN}Mongo bootstrap installation failed.${NC}"
       echo -e ""
     fi
-  
+
   else
      echo -e "${ARROW} ${CYAN}Current Node block hight ${RED}$BLOCKHIGHT${CYAN} > Bootstrap block hight ${RED}$DB_HIGHT${CYAN}. Datatable is out of date.${NC}"
      echo -e ""
@@ -440,15 +440,15 @@ fi
 function wipe_clean() {
     echo -e "${ARROW} ${YELLOW}Removing any instances of ${COIN_NAME^}${NC}"
     apt_number=$(ps aux | grep 'apt' | wc -l)
-    
+
     if [[ "$apt_number" > 1 ]]; then
-    
+
         sudo killall apt > /dev/null 2>&1
         sudo killall apt-get > /dev/null 2>&1
 	sudo dpkg --configure -a > /dev/null 2>&1
-	
+
     fi
-    
+
     echo -e "${ARROW} ${CYAN}Stopping all services and running processes...${NC}"
     sudo killall nano > /dev/null 2>&1
     "$COIN_CLI" stop > /dev/null 2>&1 && sleep 2
@@ -480,7 +480,7 @@ function wipe_clean() {
     sudo rm -rf watchgod > /dev/null 2>&1 && sleep 1
     sudo rm -rf zelflux > /dev/null 2>&1  && sleep 1
 
-    
+
     sudo rm -rf .zelbenchmark && sleep 1
     ## rm -rf $BOOTSTRAP_ZIPFILE && sleep 1
     echo -e "${ARROW} ${CYAN}Removing others files and scripts...${NC}"
@@ -489,20 +489,20 @@ function wipe_clean() {
     rm zelnodeupdate.sh > /dev/null 2>&1
     rm start.sh > /dev/null 2>&1
     rm update-zelflux.sh > /dev/null 2>&1
-    
+
  if [[ -d /home/$USER/$CONFIG_DIR ]]; then
-    
+
     if [[ -z "$use_old_chain" ]]; then
-    
+
     if  ! whiptail --yesno "Would you like to use old chain from zelcash config directory?" 8 60; then
     echo -e "${ARROW} ${CYAN}Removing Zelcash config directory...${NC}"
     sudo rm -rf /home/$USER/.zelcash  > /dev/null 2>&1 && sleep 2
     sudo rm -rf ~/$CONFIG_DIR/determ_zelnodes ~/$CONFIG_DIR/sporks ~/$CONFIG_DIR/database ~/$CONFIG_DIR/blocks ~/$CONFIG_DIR/chainstate && sleep 2
     else
         BOOTSTRAP_SKIP="1"
-	sudo rm -rf /home/$USER/$CONFIG_DIR/fee_estimates.dat 
+	sudo rm -rf /home/$USER/$CONFIG_DIR/fee_estimates.dat
 	sudo rm -rf /home/$USER/$CONFIG_DIR/peers.dat && sleep 1
-	sudo rm -rf /home/$USER/$CONFIG_DIR/zelnode.conf 
+	sudo rm -rf /home/$USER/$CONFIG_DIR/zelnode.conf
 	sudo rm -rf /home/$USER/$CONFIG_DIR/zelnodecache.dat && sleep 1
 	sudo rm -rf /home/$USER/$CONFIG_DIR/zelnodepayments.dat
 	sudo rm -rf /home/$USER/$CONFIG_DIR/db.log
@@ -511,15 +511,15 @@ function wipe_clean() {
 	sudo rm -rf /home/$USER/$CONFIG_DIR/database && sleep 1
 	sudo rm -rf /home/$USER/$CONFIG_DIR/sporks && sleep 1
     fi
-    
+
     else
-    
+
     if [[ "$use_old_chain" == "1" ]]; then
-    
+
       BOOTSTRAP_SKIP="1"
-      sudo rm -rf /home/$USER/$CONFIG_DIR/fee_estimates.dat 
+      sudo rm -rf /home/$USER/$CONFIG_DIR/fee_estimates.dat
       sudo rm -rf /home/$USER/$CONFIG_DIR/peers.dat && sleep 1
-      sudo rm -rf /home/$USER/$CONFIG_DIR/zelnode.conf 
+      sudo rm -rf /home/$USER/$CONFIG_DIR/zelnode.conf
       sudo rm -rf /home/$USER/$CONFIG_DIR/zelnodecache.dat && sleep 1
       sudo rm -rf /home/$USER/$CONFIG_DIR/zelnodepayments.dat
       sudo rm -rf /home/$USER/$CONFIG_DIR/db.log
@@ -527,13 +527,13 @@ function wipe_clean() {
       sudo rm -rf /home/$USER/$CONFIG_DIR/zelcash.conf && sleep 1
       sudo rm -rf /home/$USER/$CONFIG_DIR/database && sleep 1
       sudo rm -rf /home/$USER/$CONFIG_DIR/sporks && sleep 1
-    
+
     else
-    
+
       echo -e "${ARROW} ${CYAN}Removing Zelcash config directory...${NC}"
       sudo rm -rf /home/$USER/.zelcash  > /dev/null 2>&1 && sleep 2
       sudo rm -rf ~/$CONFIG_DIR/determ_zelnodes ~/$CONFIG_DIR/sporks ~/$CONFIG_DIR/database ~/$CONFIG_DIR/blocks ~/$CONFIG_DIR/chainstate && sleep 2
-    
+
     fi
     fi
 fi
@@ -558,15 +558,15 @@ fi
   echo -e "${ARROW} ${YELLOW}Checking firewall status...${NC}" && sleep 1
  if [[ $(sudo ufw status | grep "Status: active") ]]
   then
-    if [[ -z "$firewall_disable" ]]; then    
+    if [[ -z "$firewall_disable" ]]; then
       if   whiptail --yesno "Firewall is active and enabled. Do you want disable it during install process?<Yes>(Recommended)" 8 60; then
          sudo ufw disable > /dev/null 2>&1
 	 echo -e "${ARROW} ${CYAN}Firewall status: ${RED}Disabled${NC}"
-      else	 
+      else
 	 echo -e "${ARROW} ${CYAN}Firewall status: ${GREEN}Enabled${NC}"
       fi
     else
-    
+
       if [[ "$firewall_disable" == "1" ]]; then
   	 sudo ufw disable > /dev/null 2>&1
 	 echo -e "${ARROW} ${CYAN}Firewall status: ${RED}Disabled${NC}"
@@ -574,7 +574,7 @@ fi
         echo -e "${ARROW} ${CYAN}Firewall status: ${GREEN}Enabled${NC}"
       fi
     fi
-    
+
     else
         echo -e "${ARROW} ${CYAN}Firewall status: ${RED}Disabled${NC}"
  fi
@@ -590,31 +590,31 @@ function spinning_timer() {
 	    echo -e ""
             echo -ne "${RED}\r\033[1A\033[0K$i ${CYAN}${MSG1}${NC}"
             sleep 0.1
-	    
+
         done
     done
     echo -ne "${MSG2}"
 }
 
 #function spinning_timer() {
-    
+
    # echo -ne "${RED}\r\033[1A\033[0K$i ${CYAN}${MSG1}${NC}"
-    
+
    # end=$((SECONDS+NUM))
     #while [ $SECONDS -lt $end ];
-    #do       
+    #do
         # sleep 0.1
-	 
+
    # done
-    
+
     #echo -ne "${MSG2}"
 #}
 
 function ssh_port() {
     #echo -e "${YELLOW}Detecting SSH port being used...${NC}" && sleep 1
-    
+
     if [[ -z "$ssh_port" ]]; then
-    
+
     SSHPORT=$(grep -w Port /etc/ssh/sshd_config | sed -e 's/.*Port //')
     if ! whiptail --yesno "Detected you are using $SSHPORT for SSH is this correct?" 8 56; then
         SSHPORT=$(whiptail --inputbox "Please enter port you are using for SSH" 8 43 3>&1 1>&2 2>&3)
@@ -622,8 +622,8 @@ function ssh_port() {
     else
         echo -e "${ARROW} ${YELLOW}Using SSH port:${SEA} $SSHPORT${NC}" && sleep 1
     fi
-    
-    else   		
+
+    else
 	pettern='^[0-9]+$'
 	if [[ $ssh_port =~ $pettern ]] ; then
 	  SSHPORT="$ssh_port"
@@ -632,15 +632,15 @@ function ssh_port() {
 	 echo -e "${ARROW} ${CYAN}SSH port must be integer................[${X_MARK}${CYAN}]${NC}}"
 	 echo
 	 exit
-	fi	   
+	fi
     fi
 }
 
 function ip_confirm() {
     echo -e "${ARROW} ${YELLOW}Detecting IP address...${NC}"
-    WANIP=$(wget --timeout=3 --tries=2 http://ipecho.net/plain -O - -q) 
+    WANIP=$(wget --timeout=3 --tries=2 http://ipecho.net/plain -O - -q)
     if [[ "$WANIP" == "" ]]; then
-      WANIP=$(curl -s -m 3 ifconfig.me)     
+      WANIP=$(curl -s -m 3 ifconfig.me)
          if [[ "$WANIP" == "" ]]; then
       	 echo -e "${ARROW} ${CYAN}IP address could not be found, installation stopped .........[${X_MARK}${CYAN}]${NC}"
 	 echo
@@ -651,7 +651,7 @@ function ip_confirm() {
    # if ! whiptail --yesno "Detected IP address is $WANIP is this correct?" 8 60; then
         #WANIP=$(whiptail --inputbox "        Enter IP address" 8 36 3>&1 1>&2 2>&3)
    # fi
-    
+
 }
 
 function create_swap() {
@@ -684,11 +684,11 @@ function create_swap() {
             echo -e "${ARROW} ${YELLOW}Creating a swapfile skipped...${NC}"
         fi
     fi
-    
+
     else
-    
+
      if [[ "$swapon" == "1" ]]; then
-     
+
     MEM=$(grep MemTotal /proc/meminfo | awk '{print $2}')
     gb=$(awk "BEGIN {print $MEM/1048576}")
     GB=$(echo "$gb" | awk '{printf("%d\n",$1 + 0.5)}')
@@ -715,10 +715,10 @@ function create_swap() {
             echo -e "${ARROW} ${YELLOW}Creating a swapfile skipped...${NC}"
       fi
     #fi
-     
+
      fi
-    
-    
+
+
     fi
     sleep 2
 }
@@ -778,8 +778,8 @@ server=1
 daemon=1
 txindex=1
 listen=1
-externalip=$WANIP
-bind=0.0.0.0
+externalip=$WANIP:$PORT
+# bind=0.0.0.0
 addnode=explorer.zel.cash
 addnode=explorer2.zel.cash
 addnode=explorer.zel.zelcore.io
@@ -886,7 +886,7 @@ whiptail --title "ZELNODE INSTALLATION" --menu "Choose a method how to get boots
 
 
 case $CHOICE in
-	"1)")   
+	"1)")
 		echo -e "${ARROW} ${YELLOW}Downloading File: ${GREEN}$BOOTSTRAP_ZIP ${NC}"
        		wget -O $BOOTSTRAP_ZIPFILE $BOOTSTRAP_ZIP -q --show-progress
        		echo -e "${ARROW} ${YELLOW}Unpacking wallet bootstrap please be patient...${NC}"
@@ -894,7 +894,7 @@ case $CHOICE in
 
 
 	;;
-	"2)")   
+	"2)")
   		BOOTSTRAP_ZIP="$(whiptail --title "ZELNODE INSTALLATION" --inputbox "Enter your URL" 8 72 3>&1 1>&2 2>&3)"
 		echo -e "${ARROW} ${YELLOW}Downloading File: ${GREEN}$BOOTSTRAP_ZIP ${NC}"
 		wget -O $BOOTSTRAP_ZIPFILE $BOOTSTRAP_ZIP -q --show-progress
@@ -969,7 +969,7 @@ else
 if [[ "$bootstrap_zip_del" == "1" ]]; then
   rm -rf $BOOTSTRAP_ZIPFILE
 fi
-  
+
 fi
 
 }
@@ -1058,20 +1058,20 @@ EOF
 
 function basic_security() {
     echo -e "${ARROW} ${YELLOW}Configuring firewall and enabling fail2ban...${NC}"
-    sudo ufw allow 16124/tcp > /dev/null 2>&1
+    sudo ufw allow 16124/tcp comment "ZEL RPC" > /dev/null 2>&1
     sudo ufw allow "$SSHPORT"/tcp > /dev/null 2>&1
-    sudo ufw allow "$PORT"/tcp > /dev/null 2>&1
+    sudo ufw allow "$PORT"/tcp comment "ZEL" > /dev/null 2>&1
     sudo ufw logging on > /dev/null 2>&1
     sudo ufw default deny incoming > /dev/null 2>&1
-    
+
     sudo ufw allow out to any port 80 > /dev/null 2>&1
     sudo ufw allow out to any port 443 > /dev/null 2>&1
     sudo ufw allow out to any port 53 > /dev/null 2>&1
-    sudo ufw allow out to any port 16124 > /dev/null 2>&1
-    sudo ufw allow out to any port 16125 > /dev/null 2>&1
-    sudo ufw allow out to any port 16127 > /dev/null 2>&1
-    sudo ufw allow from any to any port 16127 > /dev/null 2>&1
-    
+    sudo ufw allow out to any port 16124 comment "ZEL RPC" > /dev/null 2>&1
+    sudo ufw allow out to any port 16125 comment "ZEL" > /dev/null 2>&1
+    sudo ufw allow out to any port 16127 comment "ZEL FLUX LOCPORT" > /dev/null 2>&1
+    sudo ufw allow from any to any port 16127 comment "ZEL FLUX LOCPORT" > /dev/null 2>&1
+
     sudo ufw default deny outgoing > /dev/null 2>&1
     sudo ufw limit OpenSSH > /dev/null 2>&1
     echo "y" | sudo ufw enable > /dev/null 2>&1
@@ -1084,7 +1084,7 @@ function pm2_install(){
 
     echo -e "${ARROW} ${YELLOW}PM2 installing...${NC}"
     npm install pm2@latest -g > /dev/null 2>&1
-    
+
     if pm2 -v > /dev/null 2>&1
     then
      	echo -e "${ARROW} ${YELLOW}Configuring PM2...${NC}"
@@ -1106,7 +1106,7 @@ function pm2_install(){
    	 echo -e "${ARROW} ${CYAN}PM2 was not installed${NC}"
 	 string_limit_x_mark "PM2 was not installed................................."
 	 echo
-    fi 
+    fi
 
 }
 
@@ -1114,7 +1114,7 @@ function start_daemon() {
 
     sudo systemctl enable $COIN_NAME.service > /dev/null 2>&1
     sudo systemctl start zelcash > /dev/null 2>&1
-    
+
     NUM='120'
     MSG1='Starting daemon & syncing with chain please be patient this will take about 2 min...'
     MSG2=''
@@ -1125,7 +1125,7 @@ function start_daemon() {
         MSG2="${CYAN}.........................[${CHECK_MARK}${CYAN}]${NC}"
         spinning_timer
         echo && echo
-	
+
 	zelcash_version=$(zelcash-cli getinfo | jq -r '.version')
 	string_limit_check_mark "Zelcash v$zelcash_version installed................................." "Zelcash ${GREEN}v$zelcash_version${CYAN} installed................................."
 	#echo -e "Zelcash version: ${GREEN}v$zelcash_version${CYAN} installed................................."
@@ -1172,12 +1172,12 @@ EOF
 }
 
 function install_zelflux() {
-    #echo 
+    #echo
     echo -e "${ARROW} ${YELLOW}Configuring firewall...${NC}"
-    sudo ufw allow $ZELFRONTPORT/tcp > /dev/null 2>&1
-    sudo ufw allow $LOCPORT/tcp > /dev/null 2>&1
-    sudo ufw allow $ZELNODEPORT/tcp > /dev/null 2>&1
-    sudo ufw allow $MDBPORT/tcp > /dev/null 2>&1
+    sudo ufw allow $ZELFRONTPORT/tcp comment "ZEL FLUX FRONTPORT" > /dev/null 2>&1
+    sudo ufw allow $LOCPORT/tcp comment "ZEL FLUX LOCPORT" > /dev/null 2>&1
+    sudo ufw allow $ZELNODEPORT/tcp comment "ZEL FLUX NODEPORT" > /dev/null 2>&1
+    sudo ufw allow $MDBPORT/tcp comment "ZEL FLUX MDBPORT" > /dev/null 2>&1
 
     echo -e "${ARROW} ${YELLOW}Configuring service repositories...${NC}"
     if ! sysbench --version > /dev/null 2>&1; then
@@ -1225,13 +1225,13 @@ sudo apt-get update -y > /dev/null 2>&1
 sudo apt-get install mongodb-org -y > /dev/null 2>&1 && sleep 2
 sudo systemctl enable mongod > /dev/null 2>&1
 sudo systemctl start  mongod > /dev/null 2>&1
-if mongod --version > /dev/null 2>&1 
+if mongod --version > /dev/null 2>&1
 then
  #echo -e "${ARROW} ${CYAN}MongoDB version: ${GREEN}$(mongod --version | grep 'db version' | sed 's/db version.//')${CYAN} installed${NC}"
  string_limit_check_mark "MongoDB $(mongod --version | grep 'db version' | sed 's/db version.//') installed................................." "MongoDB ${GREEN}$(mongod --version | grep 'db version' | sed 's/db version.//')${CYAN} installed................................."
  echo
 else
- #echo -e "${ARROW} ${CYAN}MongoDB was not installed${NC}" 
+ #echo -e "${ARROW} ${CYAN}MongoDB was not installed${NC}"
  string_limit_x_mark "MongoDB was not installed................................."
  echo
 fi
@@ -1258,7 +1258,7 @@ sudo rm -rf /usr/local/include/node*
 sudo rm -rf /usr/local/bin/node*
 echo -e "${ARROW} ${YELLOW}Nodejs installing...${NC}"
 #export NVM_DIR="$HOME/.nvm" && (
- # git clone https://github.com/nvm-sh/nvm.git "$NVM_DIR" > /dev/null 2>&1 
+ # git clone https://github.com/nvm-sh/nvm.git "$NVM_DIR" > /dev/null 2>&1
  # cd "$NVM_DIR"
  # git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)` > /dev/null 2>&1
 #) && \. "$NVM_DIR/nvm.sh"
@@ -1283,7 +1283,7 @@ fi
 }
 
 function zelflux() {
-   
+
     if [ -d "./zelflux" ]; then
          echo -e "${ARROW} ${YELLOW}Removing any instances of zelflux....${NC}"
          sudo rm -rf zelflux
@@ -1294,8 +1294,8 @@ function zelflux() {
     echo -e "${ARROW} ${YELLOW}Zelflux installing...${NC}"
     git clone https://github.com/zelcash/zelflux.git > /dev/null 2>&1
     echo -e "${ARROW} ${YELLOW}Creating zelflux configuration file...${NC}"
-    
-    
+
+
             if [[ "$IMPORT_ZELID" == "0" ]]
         then
 
@@ -1313,7 +1313,7 @@ function zelflux() {
         done
 
         fi
-      
+
     touch ~/zelflux/config/userconfig.js
     cat << EOF > ~/zelflux/config/userconfig.js
 module.exports = {
@@ -1360,35 +1360,35 @@ spinning_timer
 echo && echo
 
 else
-	
+
    echo
    echo -e "${CLOCK}${GREEN}ZELNODE SYNCING...${NC}"
-   
+
    f=0
    start_sync=`date +%s`
  #  c=0
-	
+
     while true
     do
-        
+
         EXPLORER_BLOCK_HIGHT=$(wget -nv -qO - https://explorer.zel.cash/api/status?q=getInfo | jq '.info.blocks')
         LOCAL_BLOCK_HIGHT=$(${COIN_CLI} getinfo 2> /dev/null | jq '.blocks')
 	CONNECTIONS=$(${COIN_CLI} getinfo 2> /dev/null | jq '.connections')
 	LEFT=$((EXPLORER_BLOCK_HIGHT-LOCAL_BLOCK_HIGHT))
-	
-	if [[ "$LEFT" == "0" ]]; then	
+
+	if [[ "$LEFT" == "0" ]]; then
 	  time_break='5'
 	else
 	  time_break='20'
 	fi
-	
+
 	#if [[ "$CONNECTIONS" == "0" ]]; then
 	 # c=$((c+1))
 	 # if [[ "$c" > 3 ]]; then
 	  # c=0;
 	   #LOCAL_BLOCK_HIGHT=""
 	#  fi
-	
+
 	#fi
 	#
 	if [[ $LOCAL_BLOCK_HIGHT == "" ]]; then
@@ -1398,51 +1398,51 @@ else
 	CONNECTIONS="N/A"
 	sudo systemctl stop zelcash > /dev/null 2>&1 && sleep 2
 	sudo systemctl start zelcash > /dev/null 2>&1
-	
+
           NUM='60'
           MSG1="Syncing progress => Local block hight: ${GREEN}$LOCAL_BLOCK_HIGHT${CYAN} Explorer block hight: ${RED}$EXPLORER_BLOCK_HIGHT${CYAN} Left: ${YELLOW}$LEFT${CYAN} blocks, Connections: ${YELLOW}$CONNECTIONS${CYAN} Failed: ${RED}$f${NC}"
           MSG2=''
           spinning_timer
-	  
+
 	  EXPLORER_BLOCK_HIGHT=$(wget -nv -qO - https://explorer.zel.cash/api/status?q=getInfo | jq '.info.blocks')
        	  LOCAL_BLOCK_HIGHT=$(${COIN_CLI} getinfo 2> /dev/null | jq '.blocks')
 	  CONNECTIONS=$(${COIN_CLI} getinfo 2> /dev/null | jq '.connections')
 	  LEFT=$((EXPLORER_BLOCK_HIGHT-LOCAL_BLOCK_HIGHT))
 
 	fi
-	
+
 	NUM="$time_break"
         MSG1="Syncing progress >> Local block hight: ${GREEN}$LOCAL_BLOCK_HIGHT${CYAN} Explorer block hight: ${RED}$EXPLORER_BLOCK_HIGHT${CYAN} Left: ${YELLOW}$LEFT${CYAN} blocks, Connections: ${YELLOW}$CONNECTIONS${CYAN} Failed: ${RED}$f${NC}"
         MSG2=''
         spinning_timer
-	
-        if [[ "$EXPLORER_BLOCK_HIGHT" == "$LOCAL_BLOCK_HIGHT" ]]; then	
+
+        if [[ "$EXPLORER_BLOCK_HIGHT" == "$LOCAL_BLOCK_HIGHT" ]]; then
 	    echo -e "${GREEN} Duration: $((($(date +%s)-$start_sync)/60)) min. $((($(date +%s)-$start_sync) % 60)) sec. ${CYAN}.............[${CHECK_MARK}${CYAN}]${NC}"
 	    echo
             break
         fi
     done
-    
+
     fi
 
   if [[ -z "$mongo_bootstrap" ]]; then
-    
+
     if   whiptail --yesno "Would you like to restore Mongodb datatable from bootstrap?" 8 60; then
          mongodb_bootstrap
     else
         echo -e "${ARROW} ${YELLOW}Restore Mongodb datatable skipped...${NC}"
     fi
   else
-   
+
     if [[ "$mongo_bootstrap" == "1" ]]; then
       mongodb_bootstrap
     else
       echo -e "${ARROW} ${YELLOW}Restore Mongodb datatable skipped...${NC}"
     fi
-   
+
   fi
-    
-    
+
+
   if [[ -z "$watchdog" ]]; then
     if   whiptail --yesno "Would you like to install watchdog for zelnode?" 8 60; then
          install_watchdog
@@ -1450,13 +1450,13 @@ else
         echo -e "${ARROW} ${YELLOW}Watchdog installation skipped...${NC}"
     fi
    else
-   
+
      if [[ "$watchdog" == "1" ]]; then
       install_watchdog
      else
       echo -e "${ARROW} ${YELLOW}Watchdog installation skipped...${NC}"
      fi
-   
+
    fi
 
     check
@@ -1495,7 +1495,7 @@ function check() {
     MSG2="${CYAN}.............[${CHECK_MARK}${CYAN}]${NC}"
     echo && spinning_timer
     echo && echo
-        
+
 echo -e "${BOOK}${YELLOW}ZelBench benchmarks:${NC}"
 echo -e "${YELLOW}======================${NC}"
 zelbench_benchmarks=$(zelbench-cli getbenchmarks)
@@ -1542,20 +1542,20 @@ function display_banner() {
 	if [[ "$pm2_zelflux_status" == "online" ]]; then
 	pm2_zelflux_uptime=$(pm2 info zelflux | grep 'uptime' | sed -r 's/│//gi' | sed 's/uptime//g' | xargs)
 	pm2_zelflux_restarts=$(pm2 info zelflux | grep 'restarts' | sed -r 's/│//gi' | xargs)
-	echo -e "${BOOK} ${CYAN}Pm2 Zelflux info => status: ${GREEN}$pm2_zelflux_status${CYAN}, uptime: ${GREEN}$pm2_zelflux_uptime${NC} ${SEA}$pm2_zelflux_restarts${NC}" 
+	echo -e "${BOOK} ${CYAN}Pm2 Zelflux info => status: ${GREEN}$pm2_zelflux_status${CYAN}, uptime: ${GREEN}$pm2_zelflux_uptime${NC} ${SEA}$pm2_zelflux_restarts${NC}"
 	else
 		if [[ "$pm2_zelflux_status" != "" ]]; then
-		echo -e "${PIN} ${CYAN}PM2 Zelflux status: ${RED}$pm2_zelflux_status ${NC}" 
+		echo -e "${PIN} ${CYAN}PM2 Zelflux status: ${RED}$pm2_zelflux_status ${NC}"
 		fi
 	fi
 	    echo
      fi
-    echo -e "${ARROW}${YELLOW}  COMMANDS TO MANAGE ZELCASH.${NC}" 
+    echo -e "${ARROW}${YELLOW}  COMMANDS TO MANAGE ZELCASH.${NC}"
     echo -e "${PIN} ${CYAN}Start zelcash: ${SEA}sudo systemctl start zelcash${NC}"
     echo -e "${PIN} ${CYAN}Stop zelcash: ${SEA}sudo systemctl stop zelcash${NC}"
     echo -e "${PIN} ${CYAN}Help list: ${SEA}${COIN_CLI} help${NC}"
     echo
-    echo -e "${ARROW}${YELLOW}  COMMANDS TO MANAGE ZELBENCH.${NC}" 
+    echo -e "${ARROW}${YELLOW}  COMMANDS TO MANAGE ZELBENCH.${NC}"
     echo -e "${PIN} ${CYAN}Get info: ${SEA}zelbench-cli getinfo${NC}"
     echo -e "${PIN} ${CYAN}Check benchmark: ${SEA}zelbench-cli getbenchmarks${NC}"
     echo -e "${PIN} ${CYAN}Restart benchmark: ${SEA}zelbench-cli restartnodebenchmarks${NC}"
